@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<script src="https://d3js.org/d3.v4.js"></script>
+<head>
+  <title>Tree</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+  <div
+    id="left"
+    style="
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -o-user-select: none;
+    "
+  >
+    <div id="heatmap">
+      <p id="heatmapTitle">Frequency of the projected itemsets</p>
+
+      <div id="heatmapBar1"></div>
+
+      <div id="itemset"></div>
+
+      <!-- <script src="js/heatmap.js"></script> -->
+    </div>
+
+    <div id="scale"></div>
+
+    <div id="toast"><div id="desc"></div></div>
+
+    <div id="hints">
+      Slide mouse wheel and drag to move graph.
+      <br />
+      Choose Extension/Prefix, left click point to see extensions, right click
+      to see prefixs.
+      <br />
+      Choose Superset/Subset, left click point to see supersets, right click to
+      see subsets.
+      <br />
+      Set min sup by submitting Min frequency.
+      <br />
+      Click View Maximal itemsets to view the maximal itemsets under the min
+      sup.
+      <br />
+      Click View Closed itemsets to view the closed itemsets under the min sup.
+      <br />
+      Submit filter criteria to filter the data sets.
+      <br />
+      There are two modes for filter, global filter is filtering initial data,
+      local filter is filtering current displayed data.
+      <br />
+      Set query on itemsets by checking "Query on itemsets" and choosing mode.
+      Then enter set elements separate by space.
+    </div>
+  </div>
+
+  <div id="listitemsets" style="white-space: pre">Viewing all itemsets.</div>
+
+  <div id="chart"></div>
+
+  <div
+    id="right"
+    style="
+      table-layout: auto;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -o-user-select: none;
+    "
+    unselectable="on"
+    onselectstart="return false;"
+  >
+    <table border="1" id="mytable">
+      <tbody>
+        <tr>
+          <td>Min cardinality</td>
+          <td id="min_card"></td>
+        </tr>
+        <tr>
+          <td>Max cardinality</td>
+          <td id="max_card"></td>
+        </tr>
+        <tr>
+          <td>Min frequency</td>
+          <td id="min_freq"></td>
+        </tr>
+        <tr>
+          <td>Max frequency</td>
+          <td id="max_freq"></td>
+        </tr>
+        <tr>
+          <td>Num itemsets</td>
+          <td id="num_itemsets"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="showTextCheckbox">
+      <input type="checkbox" id="hintText" onclick="showHints()" />
+      <label for="hintText">Show hints</label>
+    </div>
+
+    <div id="showHeatmapCheckbox">
+      <input type="checkbox" id="showHeatmap" onclick="showHints()" />
+      <label for="showHeatmap">Show heatmap</label>
+    </div>
+
+    <div id="filterOptions">
+      Select filter mode:
+
+      <input type="radio" name="filtermode" id="mode1" checked />
+      <label id="mode1text" for="mode1">Extension/Prefix</label>
+
+      <input type="radio" name="filtermode" id="mode2" />
+      <label id="model2text" for="mode2">Superset/Subset</label>
+    </div>
+
+    <div id="resetButtons">
+      <button
+        id="resetAll"
+        onclick="resetAll();document.getElementById('resetZoom').click()"
+      >
+        View all itemsets
+      </button>
+      <button
+        id="resetMax"
+        onclick="dispMaximalSets();document.getElementById('resetZoom').click()"
+      >
+        View Maximal itemsets
+      </button>
+      <button id="resetZoom" onclick="resetZoom()">Reset zoom</button>
+
+      <input
+        type="file"
+        id="file"
+        style="visibility: hidden"
+        onchange="read_data(event)"
+      />
+      <button
+        type="button"
+        id="selectFile"
+        onclick="document.getElementById('file').click();document.getElementById('resetZoom').click()"
+      >
+        Load file
+      </button>
+
+      <br />
+      <button
+        id="resetClosed"
+        onclick="dispClosedSets();document.getElementById('resetZoom').click()"
+      >
+        View Closed itemsets
+      </button>
+
+      <button
+        id="returnBack"
+        onclick="returnBack();document.getElementById('resetZoom').click()"
+      >
+        Return
+      </button>
+    </div>
+
+    <fieldset id="filtering">
+      <legend>Filter critera:</legend>
+
+      <input
+        type="radio"
+        name="filterGlobalLocalMode"
+        id="filterGlobalMode"
+        checked
+      />
+      <label id="filterGlobalModeLabel" for="filterGlobalMode"
+        >Global filter</label
+      >
+
+      <input type="radio" name="filterGlobalLocalMode" id="filterLocalMode" />
+      <label id="filterLocalModeLabel" for="filterLocalMode"
+        >Local filter</label
+      >
+
+      <br />
+
+      <label for="minfrequency">Min frequency:</label>
+      <input type="text" id="minfrequency" />
+
+      <label id="maxfrequencylabel" for="maxfrequency">Max frequency:</label>
+      <input type="text" id="maxfrequency" />
+
+      <br />
+
+      <label id="mincardinalitylabel" for="mincardinality"
+        >Min cardinality:</label
+      >
+      <input type="text" id="mincardinality" />
+
+      <label id="maxcardinalitylabel" for="maxcardinality"
+        >Max cardinality:</label
+      >
+      <input type="text" id="maxcardinality" />
+
+      <br />
+
+      <input type="checkbox" id="itemsetsQuery" onclick="setItemsetQuery()" />
+      <label id="itemsetsQueryLabel" for="itemsetsQuery"
+        >Query on itemsets</label
+      >
+
+      <br />
+
+      <input
+        type="radio"
+        name="itemsetsQueryMode"
+        id="itemsetsQueryMode1"
+        disabled
+      />
+      <label id="itemsetsQueryMode1Label" for="itemsetsQueryMode1"
+        >Contain some</label
+      >
+
+      <input
+        type="radio"
+        name="itemsetsQueryMode"
+        id="itemsetsQueryMode2"
+        disabled
+      />
+      <label id="itemsetsQueryMode2Label" for="itemsetsQueryMode2"
+        >Contain all</label
+      >
+
+      <input
+        type="radio"
+        name="itemsetsQueryMode"
+        id="itemsetsQueryMode3"
+        disabled
+      />
+      <label id="itemsetsQueryMode3Label" for="itemsetsQueryMode3"
+        >Exclusive all</label
+      >
+
+      <br />
+
+      <input
+        type="radio"
+        name="itemsetsQueryMode"
+        id="itemsetsQueryMode4"
+        disabled
+      />
+      <label id="itemsetsQueryMode4Label" for="itemsetsQueryMode4"
+        >Contain exact</label
+      >
+
+      <br /><br />
+
+      <input
+        type="text"
+        id="itemsetsQuerySet"
+        placeholder="Enter set elements, separate by space."
+        disabled
+      />
+
+      <br />
+
+      <button
+        id="criteriasubmit"
+        onclick="filterCriteria();document.getElementById('resetZoom').click()"
+      >
+        Submit
+      </button>
+    </fieldset>
+
+    <fieldset id="sectororder">
+      <legend>Sector order:</legend>
+
+      <input
+        type="radio"
+        name="sectorOrder"
+        id="alphaOrder"
+        checked
+        onclick="setSectorOrder()"
+      />
+      <label id="alphaOrderLabel" for="alphaOrder">Alpha</label>
+
+      <br />
+
+      <input
+        type="radio"
+        name="sectorOrder"
+        id="decreaseFreqOrder"
+        onclick="setSectorOrder()"
+      />
+      <label id="decreaseFreqOrderLabel" for="decreaseFreqOrder"
+        >Increasing frequency</label
+      >
+
+      <input
+        type="radio"
+        name="sectorOrder"
+        id="increaseFreqOrder"
+        onclick="setSectorOrder()"
+      />
+      <label id="increaseFreqOrderLabel" for="increaseFreqOrder"
+        >Decreasing frequency</label
+      >
+    </fieldset>
+  </div>
+</body>
+
+<script src="js/tree.js"></script>

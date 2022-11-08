@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Add a title -->
+<h1>First html document</h1>
+
+<!-- Add a bit of text -->
+<p>This is my first sentence</p>
+
+<!-- Add a svg shape -->
+<svg>
+  <circle style="fill: #69b3a2" stroke="black" cx=50 cy=50 r=40></circle>
+</svg>
+
+<!-- Add a svg shape. Note that the 'target' class is attributed to the circle -->
+<svg width = "600" height = "100">
+  <path transform = "translate(200, 0)" />
+</svg>
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<script>
+  d3
+    .select(".target")  // select the elements that have the class 'target'
+    .style("stroke-width", 8) // change their style: stroke width is not equal to 8 pixels
+
+    var SVG = d3.select("body").append("svg");
+    SVG.append("circle").attr("cx",50).attr("cy",50).attr("r",20);
+    var data = [[100,100],[200,20],[80,90]];
+    var lineGenerator = d3.line();
+    var pathString = lineGenerator(data);
+    d3.select("path").attr("d",pathString);
+
+    // var data = [[0, 20], [50, 30], [100, 50], [200, 60], [300, 90]];
+    //      var lineGenerator = d3.line();
+    //      var pathString = lineGenerator(data);
+    //      d3.select('path').attr('d', pathString);
+  </script>
+
+<!-- 
+
+chart = Tree(flare, {
+    label: d => d.name,
+    title: (d, n) => `${n.ancestors().reverse().map(d => d.data.name).join(".")}`, // hover text
+    link: (d, n) => `https://github.com/prefuse/Flare/${n.children ? "tree" : "blob"}/master/flare/src/${n.ancestors().reverse().map(d => d.data.name).join("/")}${n.children ? "" : ".as"}`,
+    sort: (a, b) => d3.descending(a.height, b.height), // reduce link crossings
+    tree: d3.cluster,
+    width: 1152
+  }) -->

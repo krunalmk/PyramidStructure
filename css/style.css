@@ -1,0 +1,461 @@
+/*left*/
+#left{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 900px;
+    height: 700px;
+    border: 3px solid gray;
+    z-index: -1;
+}
+
+path:hover{
+    cursor: pointer;
+    fill: blue;
+}
+
+.clear{
+    clear: both;
+}
+
+#listitemsets{
+    position: inherit;
+    top: 25px;
+    left: 25px;
+    width: auto;
+    height: auto;
+}
+
+/*toast maximal itemset message*/
+#toast{
+    position: inherit;
+    visibility: hidden;
+    width: 50%;
+    height: 50px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 1;
+    left: 25%;
+    bottom: 60px;
+    font-size: 17px;
+}
+
+#toast #desc{
+    color: #fff;
+    padding: 16px;
+    overflow: hidden;
+}
+
+#toast.show {
+    visibility: visible;
+    animation: fadeInOut 2s;
+}
+
+@keyframes fadeInOut {
+    5%, 95%{opacity: 1; bottom: 30px}
+    15%, 85%{opacity: 1; bottom: 60px}
+}
+/*toast maximal itemset message*/
+
+/*hint message*/
+#hints{
+    position: inherit;
+    visibility: hidden;
+    width: 50%;
+    height: auto;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 1;
+    left: 25%;
+    top: 100px;
+    font-size: 17px;
+    padding: 16px;
+}
+
+#hints.showHints{
+    visibility: visible;
+}
+/*hint message*/
+/*left*/
+
+#right{
+    position: absolute;
+    left: 900px;
+    top: 0px;
+    width: 250px;
+    height: 700px;
+}
+
+/*checkbox*/
+#showTextCheckbox{
+    position: inherit;
+    left: 25px;
+    top: 15px;
+    width: 150px;
+    height: 35px;
+}
+
+#showTextCheckbox #hintText{
+    position: relative;
+    top: 2px;
+}
+
+#showHeatmapCheckbox{
+    position: inherit;
+    left: 25px;
+    top: 35px;
+    width: 150px;
+    height: 35px;
+}
+
+#showHeatmapCheckbox #showHeatmap{
+    position: relative;
+    top: 2px;
+}
+/*checkbox*/
+
+/*display mode*/
+#displayMode{
+    position: inherit;
+    left: 25px;
+    top: 55px;
+    width: 150px;
+    height: 20px;
+}
+
+#displayMode #dispMode1{
+    position: relative;
+    top: 5px;
+}
+
+#displayMode #dispMode1Label{
+    position: relative;
+    top: 4px;
+}
+
+#displayMode #dispMode2{
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+
+#displayMode #dispMode2Label{
+    position: relative;
+    top: 4px;
+    left: 10px;
+}
+/*display mode*/
+
+/*raidio buttons*/
+#filterOptions{
+    position: inherit;
+    left: 25px;
+    top: 80px;
+    width: 150px;
+    height: 50px;
+}
+
+#filterOptions #mode1{
+    position: inherit;
+    top: 20px;
+
+}
+
+#filterOptions #mode1text{
+    position: relative;
+    left: 25px;
+}
+
+#filterOptions #mode2{
+    position: inherit;
+    top: 40px;
+    left: 0;
+}
+
+#filterOptions #model2text{
+    position: absolute;
+    top: 40px;
+    left: 25px;
+}
+/*raidio buttons*/
+
+/*table*/
+#mytable{
+    position: relative;
+    top: 15px;
+    left: 75%;
+    width: 180px;
+}
+/*table*/
+
+/*reset buttons*/
+#resetButtons{
+    position: inherit;
+    left: 25px;
+    top: 145px;
+    width: 310px;
+    height: 130px;
+}
+
+#resetButtons #resetAll{
+    width: 155px;
+    height: 25px;
+}
+
+#resetButtons #resetMax{
+    position: relative;
+    width: 155px;
+    top: 5px;
+    height: 25px;
+}
+
+#resetButtons #resetZoom{
+    position: inherit;
+    left: 175px;
+    width: 155px;
+    height: 25px;
+    top: 0;
+}
+
+#resetButtons #selectFile{
+    position: inherit;
+    left: 175px;
+    width: 155px;
+    height: 25px;
+    top: 30px;
+}
+
+#resetButtons #resetClosed{
+    position: inherit;
+    top: 60px;
+    width: 155px;
+    height: 25px;
+}
+
+#resetButtons #returnBack{
+    position: inherit;
+    left: 175px;
+    width: 155px;
+    height: 25px;
+    top: 60px;
+}
+/*reset buttons*/
+
+/*criteria filtering*/
+#filtering{
+    position: inherit;
+    top: 250px;
+    left: 10px;
+    width: 330px;
+    height: 210px;
+}
+
+#filtering #filterGlobalMode{
+    position: relative;
+}
+
+#filtering #filterGlobalModeLabel{
+    position: relative;
+}
+
+#filtering #filterLocalMode{
+    position: relative;
+    left: 50px;
+}
+
+#filtering #filterLocalModeLabel{
+    position: relative;
+    left: 50px;
+}
+
+#filtering #minfrequency{
+    position: relative;
+    width: 30px;
+    left: 5px;
+}
+
+#filtering #maxfrequencylabel{
+    position: relative;
+    left: 15px;
+}
+
+#filtering #maxfrequency{
+    position: relative;
+    left: 20px;
+    width: 30px;
+}
+
+#filtering #mincardinalitylabel{
+    position: relative;
+    top: 10px;
+}
+
+#filtering #mincardinality{
+    position: relative;
+    width: 30px;
+    top: 10px;
+}
+
+#filtering #maxcardinalitylabel{
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+#filtering #maxcardinality{
+    position: relative;
+    width: 30px;
+    top: 10px;
+    left: 11px;
+}
+
+#filtering #itemsetsQuery{
+    position: relative;
+    top: 15px;
+}
+
+#filtering #itemsetsQueryLabel{
+    position: relative;
+    top: 13px;
+}
+
+#filtering #itemsetsQueryMode1{
+    position: relative;
+    top: 17px;
+}
+
+#filtering #itemsetsQueryMode1Label{
+    position: relative;
+    top: 15px;
+}
+
+#filtering #itemsetsQueryMode2{
+    position: relative;
+    top: 17px;
+}
+
+#filtering #itemsetsQueryMode2Label{
+    position: relative;
+    top: 15px;
+}
+
+#filtering #itemsetsQueryMode3{
+    position: relative;
+    top: 17px;
+}
+
+#filtering #itemsetsQueryMode3Label{
+    position: relative;
+    top: 15px;
+}
+
+#filtering #itemsetsQueryMode4{
+    position: relative;
+    top: 17px;
+}
+
+#filtering #itemsetsQueryMode4Label{
+    position: relative;
+    top: 15px;
+}
+
+#filtering #itemsetsQuerySet{
+    position: relative;
+    width: 325px;
+}
+
+#filtering #criteriasubmit{
+    position: relative;
+    top: 10px;
+    left: 250px;
+}
+/*criteria filtering*/
+
+/*sector order*/
+#sectororder{
+    position: inherit;
+    top: 500px;
+    left: 10px;
+    width: 330px;
+    height: 60px;
+}
+/*sector order*/
+
+/*heatmap*/
+#heatmap{
+    position: inherit;
+    left: 550px;
+    top: 500px;
+    width: 330px;
+    height: 200px;
+    border: solid 3px grey;
+    border-radius: 4px;
+    background-color: grey;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    visibility: hidden;
+}
+
+#heatmap.showHeatmap{
+    visibility: visible;
+}
+
+#heatmap #heatmapTitle{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#heatmap #heatmapBar1{
+    position: inherit;
+    left: 40px;
+    width: 256px;
+}
+
+#heatmap #itemset{
+    position: inherit;
+    left: 135px;
+    top: 50px;
+}
+
+#heatmap text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+}
+
+#heatmap li{
+    display: block;
+    float: left;
+    width: 1px;
+    text-align: center;
+    font-size: 80%;
+    list-style: none;
+}
+
+#heatmap span{
+    display: block;
+    float: left;
+    width: 1px;
+}
+
+#scale{
+    position: inherit;
+    top: 675px;
+    left: 555px;
+    width: 330px;
+    height: 50px;
+    visibility: hidden;
+}
+
+#scale.showScale{
+    visibility: visible;
+}
+/*heatmap*/
